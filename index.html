@@ -1,0 +1,2042 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LocalCart — Your Local Store, Delivered</title>
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:#fbfcf8;
+  color:#18251d;
+}
+
+nav{
+  height:76px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 7%;
+  background:white;
+  border-bottom:1px solid #eee;
+}
+
+.logo{
+  font-size:24px;
+  font-weight:800;
+  color:#16a05d;
+}
+
+.logo span{
+  color:#222;
+}
+
+.navlinks{
+  display:flex;
+  gap:30px;
+  list-style:none;
+}
+
+.navlinks a{
+  text-decoration:none;
+  color:#444;
+  font-size:14px;
+}
+
+.navbtn{
+  background:#16a05d;
+  color:white;
+  border:0;
+  padding:12px 22px;
+  border-radius:10px;
+  font-weight:bold;
+}
+
+.hero{
+  min-height:590px;
+  padding:75px 7%;
+  display:flex;
+  align-items:center;
+  gap:50px;
+  background:
+  radial-gradient(circle at 80% 30%,#dff8e9,transparent 35%),
+  linear-gradient(120deg,#f7fff9,#fff);
+}
+
+.heroText{
+  flex:1;
+}
+
+.badge{
+  display:inline-block;
+  background:#e4f8ec;
+  color:#12844c;
+  padding:9px 15px;
+  border-radius:30px;
+  font-size:13px;
+  font-weight:bold;
+  margin-bottom:22px;
+}
+
+h1{
+  font-size:58px;
+  line-height:1.05;
+  letter-spacing:-2px;
+  margin-bottom:22px;
+}
+
+h1 span{
+  color:#16a05d;
+}
+
+.hero p{
+  font-size:17px;
+  color:#68716b;
+  line-height:1.7;
+  max-width:550px;
+}
+
+.search{
+  margin-top:30px;
+  display:flex;
+  max-width:570px;
+  background:white;
+  padding:7px;
+  border-radius:14px;
+  box-shadow:0 12px 35px #183b2515;
+}
+
+.search input{
+  flex:1;
+  border:0;
+  outline:0;
+  padding:15px;
+  font-size:15px;
+}
+
+.search button{
+  border:0;
+  background:#16a05d;
+  color:white;
+  padding:0 25px;
+  border-radius:10px;
+  font-weight:bold;
+}
+
+.heroImage{
+  flex:1;
+  min-height:430px;
+  border-radius:30px;
+  background:linear-gradient(145deg,#d9f3e2,#f7fff9);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+  overflow:hidden;
+}
+
+.groceryBox{
+  width:330px;
+  height:330px;
+  border-radius:50%;
+  background:white;
+  box-shadow:0 25px 60px #1b57332a;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:145px;
+}
+
+.float{
+  position:absolute;
+  background:white;
+  padding:13px 18px;
+  border-radius:13px;
+  box-shadow:0 10px 30px #17392318;
+  font-size:13px;
+  font-weight:bold;
+}
+
+.float.one{top:60px;left:30px;}
+.float.two{bottom:70px;right:25px;}
+.float.three{top:150px;right:20px;}
+
+section{
+  padding:80px 7%;
+}
+
+.sectionHead{
+  text-align:center;
+  margin-bottom:40px;
+}
+
+.sectionHead h2{
+  font-size:34px;
+  margin-bottom:10px;
+}
+
+.sectionHead p{
+  color:#737b76;
+}
+
+.categories{
+  display:grid;
+  grid-template-columns:repeat(6,1fr);
+  gap:18px;
+}
+
+.category{
+  background:white;
+  padding:25px 10px;
+  border-radius:18px;
+  text-align:center;
+  box-shadow:0 5px 25px #172b1b0c;
+  transition:.2s;
+}
+
+.category:hover{
+  transform:translateY(-5px);
+}
+
+.category .emoji{
+  font-size:38px;
+  margin-bottom:12px;
+}
+
+.category p{
+  font-weight:bold;
+  font-size:14px;
+}
+
+.stores{
+  background:#f3faf5;
+}
+
+.storeGrid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:22px;
+}
+
+.store{
+  background:white;
+  border-radius:20px;
+  padding:25px;
+  box-shadow:0 8px 30px #163c2110;
+}
+
+.storeIcon{
+  width:65px;
+  height:65px;
+  background:#e5f8ed;
+  border-radius:15px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:32px;
+  margin-bottom:18px;
+}
+
+.store h3{
+  margin-bottom:8px;
+}
+
+.store p{
+  color:#747b76;
+  font-size:13px;
+  margin-bottom:15px;
+}
+
+.rating{
+  color:#f39b19;
+}
+
+.products{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:20px;
+}
+
+.product{
+  background:white;
+  border:1px solid #edf0ed;
+  border-radius:18px;
+  padding:20px;
+}
+
+.productImg{
+  height:150px;
+  border-radius:15px;
+  background:#f3f7f2;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:70px;
+  margin-bottom:15px;
+}
+
+.product h3{
+  font-size:16px;
+  margin-bottom:7px;
+}
+
+.product small{
+  color:#888;
+}
+
+.price{
+  margin-top:14px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.price strong{
+  font-size:18px;
+}
+
+.add{
+  border:0;
+  background:#e5f8ed;
+  color:#12844c;
+  padding:9px 15px;
+  border-radius:9px;
+  font-weight:bold;
+}
+
+.banner{
+  margin:30px 7%;
+  border-radius:28px;
+  padding:55px;
+  background:#10251a;
+  color:white;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.banner h2{
+  font-size:34px;
+  max-width:600px;
+}
+
+.banner button{
+  background:#16a05d;
+  color:white;
+  border:0;
+  padding:15px 25px;
+  border-radius:10px;
+  font-weight:bold;
+}
+
+footer{
+  padding:45px 7%;
+  background:#0c1710;
+  color:white;
+  display:flex;
+  justify-content:space-between;
+}
+
+footer p{
+  color:#aab4ad;
+  font-size:13px;
+  margin-top:8px;
+}
+
+@media(max-width:900px){
+  .navlinks{display:none;}
+
+  .hero{
+    flex-direction:column;
+    padding-top:50px;
+  }
+
+  h1{
+    font-size:43px;
+  }
+
+  .categories{
+    grid-template-columns:repeat(3,1fr);
+  }
+
+  .storeGrid{
+    grid-template-columns:1fr;
+  }
+
+  .products{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .heroImage{
+    width:100%;
+  }
+
+  .banner{
+    margin:20px;
+    padding:35px 25px;
+    flex-direction:column;
+    gap:25px;
+    text-align:center;
+  }
+}
+
+@media(max-width:500px){
+  nav{
+    padding:0 5%;
+  }
+
+  .navbtn{
+    padding:10px 14px;
+  }
+
+  section{
+    padding:60px 5%;
+  }
+
+  .categories{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .products{
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+  }
+
+  .product{
+    padding:12px;
+  }
+
+  .productImg{
+    height:120px;
+    font-size:55px;
+  }
+
+  .search button{
+    padding:0 15px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<nav>
+  <div class="logo">Local<span>Cart</span></div>
+
+  <ul class="navlinks">
+    <li><a href="#">Home</a></li>
+    <li><a href="#stores">Stores</a></li>
+    <li><a href="#categories">Categories</a></li>
+    <li><a href="#products">Products</a></li>
+  </ul>
+
+  <button class="navbtn">Login</button>
+</nav>
+
+<section class="hero">
+
+  <div class="heroText">
+
+    <div class="badge">🏪 Your Local Stores, Online</div>
+
+    <h1>
+      Fresh groceries.<br>
+      <span>Local &amp; Fast.</span>
+    </h1>
+
+    <p>
+      Shop from the grocery stores you already trust.
+      Discover local shops, fresh products and convenient
+      doorstep delivery — all in one place.
+    </p>
+
+    <div class="search">
+      <input
+        type="text"
+        placeholder="Search groceries, stores..."
+      >
+      <button>Search</button>
+    </div>
+
+  </div>
+
+  <div class="heroImage">
+
+    <div class="float one">📍 Near You</div>
+    <div class="float two">🚴 Fast Delivery</div>
+    <div class="float three">⭐ Local Stores</div>
+
+    <div class="groceryBox">🛒</div>
+
+  </div>
+
+</section>
+
+<section id="categories">
+
+  <div class="sectionHead">
+    <h2>Shop by Category</h2>
+    <p>Everything you need for your everyday shopping.</p>
+  </div>
+
+  <div class="categories">
+
+    <div class="category">
+      <div class="emoji">🥦</div>
+      <p>Vegetables</p>
+    </div>
+
+    <div class="category">
+      <div class="emoji">🍎</div>
+      <p>Fruits</p>
+    </div>
+
+    <div class="category">
+      <div class="emoji">🥛</div>
+      <p>Dairy</p>
+    </div>
+
+    <div class="category">
+      <div class="emoji">🍪</div>
+      <p>Snacks</p>
+    </div>
+
+    <div class="category">
+      <div class="emoji">🍚</div>
+      <p>Staples</p>
+    </div>
+
+    <div class="category">
+      <div class="emoji">🧴</div>
+      <p>Household</p>
+    </div>
+
+  </div>
+
+</section>
+
+<section class="stores" id="stores">
+
+  <div class="sectionHead">
+    <h2>Popular Local Stores</h2>
+    <p>Discover trusted stores around your neighbourhood.</p>
+  </div>
+
+  <div class="storeGrid">
+
+    <div class="store">
+      <div class="storeIcon">🏪</div>
+      <h3>Sharma General Store</h3>
+      <p>Groceries • Daily Essentials</p>
+      <div class="rating">★★★★★</div>
+    </div>
+
+    <div class="store">
+      <div class="storeIcon">🛒</div>
+      <h3>Fresh Mart</h3>
+      <p>Fresh Food • Dairy • Snacks</p>
+      <div class="rating">★★★★★</div>
+    </div>
+
+    <div class="store">
+      <div class="storeIcon">🏬</div>
+      <h3>Gupta Grocery</h3>
+      <p>Household • Grocery • Staples</p>
+      <div class="rating">★★★★☆</div>
+    </div>
+
+  </div>
+
+</section>
+
+<section id="products">
+
+  <div class="sectionHead">
+    <h2>Popular Products</h2>
+    <p>Everyday products from your local stores.</p>
+  </div>
+
+  <div class="products">
+
+    <div class="product">
+      <div class="productImg">🥛</div>
+      <h3>Fresh Milk</h3>
+      <small>1 Litre</small>
+      <div class="price">
+        <strong>₹60</strong>
+        <button class="add">Add</button>
+      </div>
+    </div>
+
+    <div class="product">
+      <div class="productImg">🍎</div>
+      <h3>Fresh Apples</h3>
+      <small>1 Kg</small>
+      <div class="price">
+        <strong>₹120</strong>
+        <button class="add">Add</button>
+      </div>
+    </div>
+
+    <div class="product">
+      <div class="productImg">🍚</div>
+      <h3>Rice</h3>
+      <small>5 Kg</small>
+      <div class="price">
+        <strong>₹350</strong>
+        <button class="add">Add</button>
+      </div>
+    </div>
+
+    <div class="product">
+      <div class="productImg">🍪</div>
+      <h3>Biscuits</h3>
+      <small>Pack</small>
+      <div class="price">
+        <strong>₹30</strong>
+        <button class="add">Add</button>
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+<div class="banner">
+  <h2>
+    Your neighbourhood stores are now just a few taps away.
+  </h2>
+  <button>Explore Stores →</button>
+</div>
+
+<footer>
+  <div>
+    <strong>LocalCart</strong>
+    <p>Your local grocery marketplace.</p>
+  </div>
+
+  <div>
+    <p>© 2026 LocalCart</p>
+  </div>
+</footer>
+
+</body>
+</html>
+
+
+<script>
+/* LocalCart basic functionality */
+
+let cart = [];
+let cartCount = 0;
+
+/* ADD buttons */
+document.querySelectorAll(".add").forEach(function(button) {
+  button.addEventListener("click", function() {
+
+    const product = this.closest(".product");
+    const name = product.querySelector("h3").innerText;
+    const price = product.querySelector("strong").innerText;
+
+    cart.push({
+      name: name,
+      price: price
+    });
+
+    cartCount++;
+
+    this.innerText = "✓ Added";
+    this.style.background = "#16a05d";
+    this.style.color = "white";
+
+    setTimeout(() => {
+      this.innerText = "Add";
+      this.style.background = "";
+      this.style.color = "";
+    }, 1200);
+
+    alert(name + " cart me add ho gaya!\n\nCart items: " + cartCount);
+  });
+});
+
+
+/* SEARCH */
+const searchInput = document.querySelector(".search input");
+const searchButton = document.querySelector(".search button");
+
+searchButton.addEventListener("click", function() {
+
+  const value = searchInput.value.trim();
+
+  if(value === "") {
+    alert("Please grocery ya store ka naam search karo.");
+    return;
+  }
+
+  alert("Searching for: " + value);
+});
+
+
+/* ENTER KEY SEARCH */
+searchInput.addEventListener("keypress", function(event) {
+  if(event.key === "Enter") {
+    searchButton.click();
+  }
+});
+
+
+/* LOGIN */
+document.querySelector(".navbtn").addEventListener("click", function() {
+
+  const name = prompt("Customer Login\n\nApna mobile number enter karo:");
+
+  if(name) {
+    alert("Login system next step me connect hoga.\n\nWelcome to LocalCart!");
+  }
+
+});
+
+
+/* EXPLORE STORES */
+const exploreButton = document.querySelector(".banner button");
+
+exploreButton.addEventListener("click", function() {
+  document.querySelector("#stores").scrollIntoView({
+    behavior: "smooth"
+  });
+});
+
+
+/* CATEGORY CLICK */
+document.querySelectorAll(".category").forEach(function(category) {
+
+  category.addEventListener("click", function() {
+
+    const categoryName = this.querySelector("p").innerText;
+
+    searchInput.value = categoryName;
+
+    document.querySelector("#products").scrollIntoView({
+      behavior: "smooth"
+    });
+
+  });
+
+});
+
+
+/* STORE CLICK */
+document.querySelectorAll(".store").forEach(function(store) {
+
+  store.addEventListener("click", function() {
+
+    const storeName = this.querySelector("h3").innerText;
+
+    alert(
+      storeName +
+      "\n\nStore page next step me banega."
+    );
+
+  });
+
+});
+
+
+console.log("LocalCart system loaded successfully!");
+
+</script>
+
+
+<style>
+#cartBtn{
+  position:fixed;
+  right:18px;
+  bottom:20px;
+  z-index:9999;
+  background:#16a05d;
+  color:white;
+  border:0;
+  padding:15px 20px;
+  border-radius:50px;
+  font-size:16px;
+  font-weight:bold;
+  box-shadow:0 8px 25px #0003;
+}
+
+#cartModal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:#0008;
+  z-index:10000;
+  align-items:flex-end;
+  justify-content:center;
+}
+
+.cartBox{
+  background:white;
+  width:100%;
+  max-width:550px;
+  max-height:85vh;
+  overflow:auto;
+  border-radius:25px 25px 0 0;
+  padding:25px;
+}
+
+.cartHead{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+}
+
+.cartHead h2{
+  margin:0;
+}
+
+.closeCart{
+  border:0;
+  background:#eee;
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  font-size:20px;
+}
+
+.cartItem{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:15px 0;
+  border-bottom:1px solid #eee;
+}
+
+.qty{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.qty button{
+  border:0;
+  background:#e4f8ec;
+  color:#12844c;
+  width:32px;
+  height:32px;
+  border-radius:8px;
+  font-size:18px;
+  font-weight:bold;
+}
+
+.cartTotal{
+  margin-top:20px;
+  padding-top:20px;
+  border-top:2px solid #eee;
+  display:flex;
+  justify-content:space-between;
+  font-size:21px;
+  font-weight:bold;
+}
+
+.checkout{
+  width:100%;
+  margin-top:20px;
+  padding:16px;
+  border:0;
+  border-radius:12px;
+  background:#16a05d;
+  color:white;
+  font-size:17px;
+  font-weight:bold;
+}
+
+.emptyCart{
+  text-align:center;
+  padding:40px 10px;
+  color:#777;
+}
+</style>
+
+<button id="cartBtn">🛒 Cart (0)</button>
+
+<div id="cartModal">
+  <div class="cartBox">
+
+    <div class="cartHead">
+      <h2>Your Cart</h2>
+      <button class="closeCart" id="closeCart">×</button>
+    </div>
+
+    <div id="cartItems"></div>
+
+    <div class="cartTotal">
+      <span>Total</span>
+      <span id="cartTotal">₹0</span>
+    </div>
+
+    <button class="checkout" id="checkout">
+      Continue to Checkout →
+    </button>
+
+  </div>
+</div>
+
+<script>
+
+const cartButton = document.getElementById("cartBtn");
+const cartModal = document.getElementById("cartModal");
+const closeCart = document.getElementById("closeCart");
+const cartItemsBox = document.getElementById("cartItems");
+const cartTotalBox = document.getElementById("cartTotal");
+
+
+function updateCart(){
+
+  cartButton.innerText = "🛒 Cart (" + cart.length + ")";
+
+  if(cart.length === 0){
+
+    cartItemsBox.innerHTML =
+      '<div class="emptyCart">🛒<br><br>Your cart is empty</div>';
+
+    cartTotalBox.innerText = "₹0";
+    return;
+  }
+
+  let total = 0;
+
+  cartItemsBox.innerHTML = "";
+
+  cart.forEach(function(item, index){
+
+    let priceNumber =
+      parseInt(item.price.replace("₹",""));
+
+    total += priceNumber;
+
+    cartItemsBox.innerHTML += `
+      <div class="cartItem">
+
+        <div>
+          <strong>${item.name}</strong>
+          <br>
+          <small>${item.price}</small>
+        </div>
+
+        <div class="qty">
+          <button onclick="removeItem(${index})">−</button>
+          <span>1</span>
+          <button onclick="addAgain(${index})">+</button>
+        </div>
+
+      </div>
+    `;
+
+  });
+
+  cartTotalBox.innerText = "₹" + total;
+}
+
+
+function removeItem(index){
+
+  cart.splice(index,1);
+  updateCart();
+
+}
+
+
+function addAgain(index){
+
+  cart.push({
+    name:cart[index].name,
+    price:cart[index].price
+  });
+
+  updateCart();
+
+}
+
+
+cartButton.addEventListener("click",function(){
+
+  updateCart();
+  cartModal.style.display="flex";
+
+});
+
+
+closeCart.addEventListener("click",function(){
+
+  cartModal.style.display="none";
+
+});
+
+
+cartModal.addEventListener("click",function(e){
+
+  if(e.target === cartModal){
+    cartModal.style.display="none";
+  }
+
+});
+
+
+document.getElementById("checkout").addEventListener("click",function(){
+
+  if(cart.length === 0){
+
+    alert("Pehle cart me product add karo.");
+    return;
+
+  }
+
+  alert(
+    "Checkout next step me banega.\n\n" +
+    "Cart me " + cart.length + " item hain."
+  );
+
+});
+
+
+/* Existing Add buttons ko cart ke saath connect karo */
+
+document.querySelectorAll(".add").forEach(function(button){
+
+  button.addEventListener("click",function(){
+
+    setTimeout(function(){
+      updateCart();
+    },50);
+
+  });
+
+});
+
+
+updateCart();
+
+</script>
+
+
+<style>
+#checkoutModal{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:20000;
+  background:#0008;
+  align-items:center;
+  justify-content:center;
+  padding:18px;
+}
+
+.checkoutBox{
+  width:100%;
+  max-width:520px;
+  max-height:90vh;
+  overflow:auto;
+  background:white;
+  border-radius:25px;
+  padding:25px;
+}
+
+.checkoutTop{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:20px;
+}
+
+.checkoutTop h2{
+  margin:0;
+}
+
+.closeCheckout{
+  border:0;
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  background:#eee;
+  font-size:22px;
+}
+
+.checkoutBox label{
+  display:block;
+  margin:15px 0 7px;
+  font-weight:bold;
+  font-size:14px;
+}
+
+.checkoutBox input,
+.checkoutBox textarea{
+  width:100%;
+  padding:14px;
+  border:1px solid #ddd;
+  border-radius:11px;
+  outline:none;
+  font-size:15px;
+}
+
+.checkoutBox textarea{
+  min-height:100px;
+  resize:none;
+}
+
+.placeOrder{
+  width:100%;
+  margin-top:22px;
+  padding:16px;
+  border:0;
+  border-radius:12px;
+  background:#16a05d;
+  color:white;
+  font-size:17px;
+  font-weight:bold;
+}
+
+.orderSuccess{
+  display:none;
+  text-align:center;
+  padding:25px 5px;
+}
+
+.orderSuccess .check{
+  font-size:65px;
+}
+
+.orderSuccess h2{
+  margin:15px 0 8px;
+}
+
+.orderId{
+  display:inline-block;
+  background:#e5f8ed;
+  color:#12844c;
+  padding:12px 18px;
+  border-radius:10px;
+  font-weight:bold;
+  margin:15px 0;
+}
+</style>
+
+<div id="checkoutModal">
+
+  <div class="checkoutBox">
+
+    <div class="checkoutTop">
+      <h2>Delivery Details</h2>
+      <button class="closeCheckout" id="closeCheckout">×</button>
+    </div>
+
+    <div id="checkoutForm">
+
+      <label>Your Name</label>
+      <input
+        id="customerName"
+        type="text"
+        placeholder="Enter your name"
+      >
+
+      <label>Mobile Number</label>
+      <input
+        id="customerMobile"
+        type="tel"
+        maxlength="10"
+        placeholder="10 digit mobile number"
+      >
+
+      <label>Delivery Address</label>
+      <textarea
+        id="customerAddress"
+        placeholder="House no., street, area..."
+      ></textarea>
+
+      <label>Landmark</label>
+      <input
+        id="customerLandmark"
+        type="text"
+        placeholder="Nearby landmark (optional)"
+      >
+
+      <button class="placeOrder" id="placeOrder">
+        🛍️ Place Order
+      </button>
+
+    </div>
+
+    <div class="orderSuccess" id="orderSuccess">
+
+      <div class="check">✅</div>
+
+      <h2>Order Placed!</h2>
+
+      <p>Your local store will receive your order.</p>
+
+      <div class="orderId" id="orderId"></div>
+
+      <br>
+
+      <button
+        class="placeOrder"
+        onclick="location.reload()"
+      >
+        Continue Shopping
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+
+const checkoutModal =
+  document.getElementById("checkoutModal");
+
+const checkoutForm =
+  document.getElementById("checkoutForm");
+
+const orderSuccess =
+  document.getElementById("orderSuccess");
+
+
+/*
+  Checkout button ko intercept kar rahe hain
+*/
+document.getElementById("checkout").addEventListener(
+  "click",
+  function(event){
+
+    event.preventDefault();
+    event.stopImmediatePropagation();
+
+    if(cart.length === 0){
+      alert("Pehle cart me product add karo.");
+      return;
+    }
+
+    checkoutModal.style.display = "flex";
+
+  },
+  true
+);
+
+
+/* Close checkout */
+
+document.getElementById("closeCheckout")
+.addEventListener("click",function(){
+
+  checkoutModal.style.display = "none";
+
+});
+
+
+/* Place Order */
+
+document.getElementById("placeOrder")
+.addEventListener("click",function(){
+
+  const name =
+    document.getElementById("customerName").value.trim();
+
+  const mobile =
+    document.getElementById("customerMobile").value.trim();
+
+  const address =
+    document.getElementById("customerAddress").value.trim();
+
+  const landmark =
+    document.getElementById("customerLandmark").value.trim();
+
+
+  if(name === ""){
+    alert("Apna naam enter karo.");
+    return;
+  }
+
+
+  if(!/^[0-9]{10}$/.test(mobile)){
+    alert("Valid 10 digit mobile number enter karo.");
+    return;
+  }
+
+
+  if(address === ""){
+    alert("Delivery address enter karo.");
+    return;
+  }
+
+
+  /* Order ID */
+
+  const orderId =
+    "LC" +
+    Date.now().toString().slice(-8);
+
+
+  /* Total */
+
+  let total = 0;
+
+  cart.forEach(function(item){
+
+    total += parseInt(
+      item.price.replace("₹","")
+    );
+
+  });
+
+
+  /* Order data */
+
+  const order = {
+
+    id: orderId,
+
+    customer: {
+      name: name,
+      mobile: mobile,
+      address: address,
+      landmark: landmark
+    },
+
+    items: cart,
+
+    total: total,
+
+    status: "Order Placed",
+
+    createdAt: new Date().toLocaleString()
+
+  };
+
+
+  /* Temporary local storage */
+
+  localStorage.setItem(
+    "lastLocalCartOrder",
+    JSON.stringify(order)
+  );
+
+
+  document.getElementById("orderId").innerText =
+    "Order ID: " + orderId;
+
+
+  checkoutForm.style.display = "none";
+
+  orderSuccess.style.display = "block";
+
+
+  /* Cart empty */
+
+  cart = [];
+
+  updateCart();
+
+});
+
+</script>
+
+
+<style>
+.store{
+  cursor:pointer;
+  transition:.25s;
+}
+
+.store:hover{
+  transform:translateY(-6px);
+}
+
+.storePage{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:30000;
+  background:#f8fbf8;
+  overflow:auto;
+}
+
+.storeHeader{
+  background:white;
+  padding:20px 6%;
+  display:flex;
+  align-items:center;
+  gap:20px;
+  border-bottom:1px solid #eee;
+  position:sticky;
+  top:0;
+  z-index:2;
+}
+
+.backStore{
+  border:0;
+  background:#e7f7ed;
+  color:#12844c;
+  padding:11px 16px;
+  border-radius:10px;
+  font-weight:bold;
+}
+
+.storeInfo h2{
+  margin-bottom:5px;
+}
+
+.storeInfo p{
+  color:#777;
+  font-size:13px;
+}
+
+.storeProducts{
+  padding:35px 6%;
+}
+
+.storeProducts h2{
+  margin-bottom:25px;
+}
+
+.storeProductGrid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
+}
+
+.storeProduct{
+  background:white;
+  padding:18px;
+  border-radius:18px;
+  box-shadow:0 5px 20px #1739230c;
+}
+
+.storeProductImg{
+  height:130px;
+  background:#f3f7f2;
+  border-radius:14px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:60px;
+  margin-bottom:13px;
+}
+
+.storeProduct h3{
+  font-size:16px;
+  margin-bottom:6px;
+}
+
+.storeProduct small{
+  color:#888;
+}
+
+.storePrice{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-top:14px;
+}
+
+.storeAdd{
+  border:0;
+  background:#16a05d;
+  color:white;
+  padding:9px 14px;
+  border-radius:9px;
+  font-weight:bold;
+}
+
+@media(max-width:700px){
+  .storeProductGrid{
+    grid-template-columns:repeat(2,1fr);
+  }
+
+  .storeHeader{
+    padding:15px;
+  }
+
+  .storeProducts{
+    padding:25px 15px;
+  }
+}
+</style>
+
+<div class="storePage" id="storePage">
+
+  <div class="storeHeader">
+
+    <button class="backStore" id="backStore">
+      ← Back
+    </button>
+
+    <div class="storeInfo">
+      <h2 id="selectedStoreName">Store</h2>
+      <p id="selectedStoreInfo">Local grocery store</p>
+    </div>
+
+  </div>
+
+  <div class="storeProducts">
+
+    <h2>Products</h2>
+
+    <div class="storeProductGrid" id="storeProductGrid"></div>
+
+  </div>
+
+</div>
+
+<script>
+
+const storesData = {
+
+  "Sharma General Store":[
+
+    ["🥛","Fresh Milk","1 Litre","₹60"],
+    ["🍚","Basmati Rice","5 Kg","₹350"],
+    ["🫗","Cooking Oil","1 Litre","₹140"],
+    ["🍪","Biscuits","Pack","₹30"],
+    ["🍎","Apples","1 Kg","₹120"],
+    ["🥔","Potatoes","1 Kg","₹35"]
+
+  ],
+
+  "Fresh Mart":[
+
+    ["🍎","Fresh Apples","1 Kg","₹120"],
+    ["🍌","Bananas","1 Dozen","₹60"],
+    ["🥦","Broccoli","500 g","₹70"],
+    ["🥛","Milk","1 Litre","₹60"],
+    ["🍞","Bread","Pack","₹40"],
+    ["🥚","Eggs","12 Pieces","₹90"]
+
+  ],
+
+  "Gupta Grocery":[
+
+    ["🍚","Rice","5 Kg","₹350"],
+    ["🌾","Wheat Flour","5 Kg","₹250"],
+    ["🫘","Dal","1 Kg","₹130"],
+    ["🧂","Salt","1 Kg","₹25"],
+    ["🍪","Biscuits","Pack","₹30"],
+    ["🧴","Dishwash","Bottle","₹85"]
+
+  ]
+
+};
+
+
+const storePage =
+  document.getElementById("storePage");
+
+const storeGrid =
+  document.getElementById("storeProductGrid");
+
+
+function openStore(storeName){
+
+  document.getElementById(
+    "selectedStoreName"
+  ).innerText = storeName;
+
+  document.getElementById(
+    "selectedStoreInfo"
+  ).innerText =
+    "🏪 Local Store • ⭐ 4.8 • 🚴 Local Delivery";
+
+
+  storeGrid.innerHTML = "";
+
+
+  const products =
+    storesData[storeName] || [];
+
+
+  products.forEach(function(product){
+
+    storeGrid.innerHTML += `
+
+      <div class="storeProduct">
+
+        <div class="storeProductImg">
+          ${product[0]}
+        </div>
+
+        <h3>${product[1]}</h3>
+
+        <small>${product[2]}</small>
+
+        <div class="storePrice">
+
+          <strong>${product[3]}</strong>
+
+          <button
+            class="storeAdd"
+            onclick="addStoreProduct(
+              '${product[1]}',
+              '${product[3]}'
+            )"
+          >
+            Add
+          </button>
+
+        </div>
+
+      </div>
+
+    `;
+
+  });
+
+
+  storePage.style.display = "block";
+
+  window.scrollTo(0,0);
+
+}
+
+
+function addStoreProduct(name,price){
+
+  cart.push({
+    name:name,
+    price:price
+  });
+
+  updateCart();
+
+  alert(
+    name +
+    " cart me add ho gaya! 🛒\n\n" +
+    "Cart items: " +
+    cart.length
+  );
+
+}
+
+
+/* Existing store cards */
+
+document.querySelectorAll(".store")
+.forEach(function(store){
+
+  store.addEventListener("click",function(){
+
+    const name =
+      store.querySelector("h3").innerText;
+
+    openStore(name);
+
+  });
+
+});
+
+
+document.getElementById("backStore")
+.addEventListener("click",function(){
+
+  storePage.style.display = "none";
+
+});
+
+
+</script>
+
+
+<style>
+#ownerBtn{
+  position:fixed;
+  left:15px;
+  bottom:20px;
+  z-index:9998;
+  border:0;
+  background:#18251d;
+  color:white;
+  padding:13px 18px;
+  border-radius:12px;
+  font-weight:bold;
+}
+
+#ownerPanel{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:50000;
+  background:#f5f8f5;
+  overflow:auto;
+}
+
+.ownerTop{
+  background:#10251a;
+  color:white;
+  padding:22px 6%;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.ownerTop h2{
+  margin:0;
+}
+
+.ownerClose{
+  border:0;
+  background:white;
+  color:#18251d;
+  padding:10px 15px;
+  border-radius:9px;
+  font-weight:bold;
+}
+
+.ownerContent{
+  max-width:850px;
+  margin:auto;
+  padding:30px 18px 80px;
+}
+
+.ownerCard{
+  background:white;
+  border-radius:18px;
+  padding:22px;
+  margin-bottom:20px;
+  box-shadow:0 5px 25px #0000000c;
+}
+
+.ownerCard h3{
+  margin-bottom:18px;
+}
+
+.ownerInput{
+  width:100%;
+  padding:13px;
+  border:1px solid #ddd;
+  border-radius:10px;
+  margin-bottom:12px;
+  outline:none;
+}
+
+.ownerAdd{
+  width:100%;
+  padding:14px;
+  border:0;
+  border-radius:10px;
+  background:#16a05d;
+  color:white;
+  font-weight:bold;
+}
+
+.ownerProduct{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:13px 0;
+  border-bottom:1px solid #eee;
+}
+
+.deleteProduct{
+  border:0;
+  background:#ffe8e8;
+  color:#c33;
+  padding:8px 12px;
+  border-radius:8px;
+}
+
+.ownerMsg{
+  margin-top:12px;
+  color:#12844c;
+  font-weight:bold;
+}
+</style>
+
+<button id="ownerBtn">👑 Owner</button>
+
+<div id="ownerPanel">
+
+  <div class="ownerTop">
+    <h2>LocalCart Owner</h2>
+    <button class="ownerClose" id="ownerClose">Close</button>
+  </div>
+
+  <div class="ownerContent">
+
+    <div class="ownerCard">
+
+      <h3>🏪 Store Information</h3>
+
+      <input
+        class="ownerInput"
+        id="ownerStoreName"
+        placeholder="Store name"
+      >
+
+      <button class="ownerAdd" id="saveStore">
+        Save Store
+      </button>
+
+      <div class="ownerMsg" id="storeMsg"></div>
+
+    </div>
+
+
+    <div class="ownerCard">
+
+      <h3>➕ Add Product</h3>
+
+      <input
+        class="ownerInput"
+        id="newProductName"
+        placeholder="Product name"
+      >
+
+      <input
+        class="ownerInput"
+        id="newProductPrice"
+        placeholder="Price e.g. ₹50"
+      >
+
+      <input
+        class="ownerInput"
+        id="newProductUnit"
+        placeholder="Unit e.g. 1 Kg"
+      >
+
+      <button class="ownerAdd" id="addProduct">
+        Add Product
+      </button>
+
+    </div>
+
+
+    <div class="ownerCard">
+
+      <h3>📦 Your Products</h3>
+
+      <div id="ownerProducts"></div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+
+const ownerBtn =
+  document.getElementById("ownerBtn");
+
+const ownerPanel =
+  document.getElementById("ownerPanel");
+
+const ownerProducts =
+  document.getElementById("ownerProducts");
+
+
+let ownerStore =
+  JSON.parse(
+    localStorage.getItem("localcartOwner")
+  ) || {
+
+    name:"My Local Store",
+
+    products:[]
+
+  };
+
+
+function saveOwnerData(){
+
+  localStorage.setItem(
+    "localcartOwner",
+    JSON.stringify(ownerStore)
+  );
+
+}
+
+
+function renderOwnerProducts(){
+
+  ownerProducts.innerHTML = "";
+
+  if(ownerStore.products.length === 0){
+
+    ownerProducts.innerHTML =
+      "<p>No products added yet.</p>";
+
+    return;
+
+  }
+
+
+  ownerStore.products.forEach(
+    function(product,index){
+
+      ownerProducts.innerHTML += `
+
+        <div class="ownerProduct">
+
+          <div>
+            <strong>${product.name}</strong>
+            <br>
+            <small>
+              ${product.unit} • ${product.price}
+            </small>
+          </div>
+
+          <button
+            class="deleteProduct"
+            onclick="deleteOwnerProduct(${index})"
+          >
+            Delete
+          </button>
+
+        </div>
+
+      `;
+
+    }
+  );
+
+}
+
+
+function deleteOwnerProduct(index){
+
+  ownerStore.products.splice(index,1);
+
+  saveOwnerData();
+
+  renderOwnerProducts();
+
+}
+
+
+ownerBtn.addEventListener(
+  "click",
+  function(){
+
+    ownerPanel.style.display="block";
+
+    document.getElementById(
+      "ownerStoreName"
+    ).value = ownerStore.name;
+
+    renderOwnerProducts();
+
+  }
+);
+
+
+ownerClose.addEventListener(
+  "click",
+  function(){
+
+    ownerPanel.style.display="none";
+
+  }
+);
+
+
+document.getElementById("saveStore")
+.addEventListener(
+  "click",
+  function(){
+
+    const name =
+      document.getElementById(
+        "ownerStoreName"
+      ).value.trim();
+
+    if(!name){
+
+      alert("Store name enter karo.");
+
+      return;
+
+    }
+
+    ownerStore.name = name;
+
+    saveOwnerData();
+
+    document.getElementById(
+      "storeMsg"
+    ).innerText =
+      "✓ Store saved successfully";
+
+  }
+);
+
+
+document.getElementById("addProduct")
+.addEventListener(
+  "click",
+  function(){
+
+    const name =
+      document.getElementById(
+        "newProductName"
+      ).value.trim();
+
+    const price =
+      document.getElementById(
+        "newProductPrice"
+      ).value.trim();
+
+    const unit =
+      document.getElementById(
+        "newProductUnit"
+      ).value.trim();
+
+
+    if(!name || !price || !unit){
+
+      alert("Product ki complete details bharo.");
+
+      return;
+
+    }
+
+
+    ownerStore.products.push({
+
+      name:name,
+      price:price,
+      unit:unit
+
+    });
+
+
+    saveOwnerData();
+
+    document.getElementById(
+      "newProductName"
+    ).value="";
+
+    document.getElementById(
+      "newProductPrice"
+    ).value="";
+
+    document.getElementById(
+      "newProductUnit"
+    ).value="";
+
+
+    renderOwnerProducts();
+
+    alert("Product successfully added! ✅");
+
+  }
+);
+
+
+</script>
+
