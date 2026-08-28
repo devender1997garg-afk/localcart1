@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LocalCart — Website Owner Login</title>
+
+<style>
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  font-family:Arial,Helvetica,sans-serif;
+  background:linear-gradient(135deg,#18251d,#0e1712);
+}
+
+.box{
+  width:100%;
+  max-width:420px;
+  background:#fff;
+  padding:32px 26px;
+  border-radius:24px;
+  box-shadow:0 20px 70px #0007;
+}
+
+.logo{
+  text-align:center;
+  font-size:30px;
+  font-weight:800;
+  color:#16a05d;
+}
+
+.logo span{
+  color:#222;
+}
+
+.badge{
+  margin:20px 0;
+  padding:12px;
+  border-radius:10px;
+  text-align:center;
+  background:#18251d;
+  color:#fff;
+  font-weight:bold;
+  font-size:13px;
+}
+
+h1{
+  text-align:center;
+  font-size:21px;
+}
+
+.sub{
+  text-align:center;
+  color:#777;
+  margin:8px 0 22px;
+}
+
+label{
+  display:block;
+  font-size:13px;
+  font-weight:bold;
+  margin:12px 0 6px;
+}
+
+input{
+  width:100%;
+  padding:14px;
+  border:1px solid #ddd;
+  border-radius:10px;
+  outline:none;
+  font-size:15px;
+}
+
+input:focus{
+  border-color:#16a05d;
+}
+
+.login{
+  width:100%;
+  margin-top:20px;
+  padding:15px;
+  border:0;
+  border-radius:10px;
+  background:#16a05d;
+  color:#fff;
+  font-size:16px;
+  font-weight:bold;
+}
+
+.msg{
+  min-height:20px;
+  margin-top:12px;
+  text-align:center;
+  color:#d33;
+  font-size:13px;
+}
+
+.back{
+  display:block;
+  text-align:center;
+  margin-top:20px;
+  color:#777;
+  text-decoration:none;
+  font-size:13px;
+}
+
+.warning{
+  margin-top:18px;
+  padding:12px;
+  border-radius:10px;
+  background:#fff6df;
+  color:#765b16;
+  font-size:12px;
+  line-height:1.5;
+  text-align:center;
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+
+  <div class="logo">
+    Local<span>Cart</span>
+  </div>
+
+  <div class="badge">
+    👑 WEBSITE OWNER ACCESS
+  </div>
+
+  <h1>Admin Login</h1>
+
+  <p class="sub">
+    LocalCart main control panel
+  </p>
+
+  <label for="username">
+    Owner Username
+  </label>
+
+  <input
+    id="username"
+    type="text"
+    autocomplete="username"
+    placeholder="Enter owner username"
+  >
+
+  <label for="password">
+    Owner Password
+  </label>
+
+  <input
+    id="password"
+    type="password"
+    autocomplete="current-password"
+    placeholder="Enter owner password"
+  >
+
+  <button
+    class="login"
+    onclick="adminLogin()"
+  >
+    Login as Website Owner
+  </button>
+
+  <div id="msg" class="msg"></div>
+
+  <a href="login.html" class="back">
+    ← Customer Login
+  </a>
+
+  <div class="warning">
+    ⚠️ This is the LocalCart Website Owner area.
+    Do not share your admin password.
+  </div>
+
+</div>
+
+<script>
+
+function adminLogin(){
+
+  const username =
+    document.getElementById("username")
+    .value.trim();
+
+  const password =
+    document.getElementById("password")
+    .value;
+
+  const msg =
+    document.getElementById("msg");
+
+  msg.innerText="";
+
+
+  /*
+   * DEMO ADMIN CREDENTIALS
+   *
+   * Change these before using.
+   */
+
+  const ADMIN_USERNAME =
+    "devender";
+
+  const ADMIN_PASSWORD =
+    "LocalCart@2026";
+
+
+  if(
+    username !== ADMIN_USERNAME ||
+    password !== ADMIN_PASSWORD
+  ){
+
+    msg.innerText =
+      "Username ya password incorrect.";
+
+    return;
+  }
+
+
+  /*
+   * Create admin session
+   */
+
+  localStorage.setItem(
+    "localcartAdminSession",
+    "true"
+  );
+
+
+  localStorage.setItem(
+    "localcartAdminLoginTime",
+    new Date().toISOString()
+  );
+
+
+  /*
+   * Save history
+   */
+
+  let history =
+    JSON.parse(
+      localStorage.getItem(
+        "localcartHistory"
+      )
+    ) || [];
+
+
+  history.unshift({
+
+    type:"admin_login",
+
+    text:
+      "Website Owner logged in",
+
+    time:
+      new Date().toLocaleString()
+
+  });
+
+
+  localStorage.setItem(
+    "localcartHistory",
+    JSON.stringify(
+      history.slice(0,100)
+    )
+  );
+
+
+  /*
+   * Open Admin Dashboard
+   */
+
+  window.location.href =
+    "admin.html";
+
+}
+
+</script>
+
+</body>
+</html>

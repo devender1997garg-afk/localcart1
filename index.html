@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#0879c9">
+<title>CYBER CAFE // 2004–2010</title>
+<style>
+:root{
+  --xp-blue:#0879c9;--xp-dark:#07539b;--xp-light:#2ea7f5;--silver:#ece9d8;
+  --ink:#111;--green:#16833a;--yellow:#fff4a8;--pink:#ffd6e7;
+  --shadow:3px 3px 0 #0007;
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:Tahoma,Arial,sans-serif;background:#083d63;color:var(--ink)}
+button,input{font:inherit}
+button{cursor:pointer}
+button:focus-visible,input:focus-visible{outline:3px solid #ffd900;outline-offset:2px}
+body{overflow-x:hidden}
+#desktop{
+  min-height:100vh;padding:16px 16px 74px;
+  background:
+    radial-gradient(circle at 20% 20%,#1b7bb6 0 1px,transparent 2px),
+    linear-gradient(135deg,#075b8d,#06375d 55%,#092e50);
+}
+.scan{position:fixed;inset:0;pointer-events:none;z-index:99;opacity:.06;background:repeating-linear-gradient(0deg,#fff 0 1px,transparent 1px 4px)}
+.icons{display:flex;gap:20px;flex-wrap:wrap;max-width:700px}
+.icon{width:74px;color:white;text-align:center;text-shadow:1px 1px #000;user-select:none}
+.icon button{background:none;border:0;color:inherit;width:100%;padding:5px}
+.icon .pic{font-size:35px;display:block;height:45px;filter:drop-shadow(2px 2px 0 #0006)}
+.icon span{font-size:12px;line-height:1.1}
+.window{
+  position:absolute;top:100px;left:50%;transform:translateX(-50%);
+  width:min(720px,calc(100vw - 28px));background:var(--silver);
+  border:2px solid #fff;border-right-color:#555;border-bottom-color:#555;
+  box-shadow:var(--shadow);display:none;z-index:10
+}
+.window.open{display:block}
+.titlebar{height:30px;background:linear-gradient(#3aabf5,#0757ad);color:#fff;font-weight:bold;padding:5px 6px;display:flex;align-items:center;justify-content:space-between}
+.titlebar .controls button{width:22px;height:21px;padding:0;margin-left:3px;border:1px solid #fff;background:#d9d9d9;color:#111;font-weight:bold}
+.content{padding:14px;max-height:67vh;overflow:auto}
+.notepad{background:#fffef1;border:1px solid #888;padding:16px;line-height:1.55}
+.hero{
+  min-height:390px;display:flex;align-items:center;justify-content:center;text-align:center;
+  padding:35px 15px 10px;color:#fff;
+}
+.hero h1{font-family:"Courier New",monospace;font-size:clamp(38px,8vw,76px);margin:0;text-shadow:4px 4px #002743;letter-spacing:-4px}
+.hero p{margin:10px auto;max-width:650px;font-size:15px}
+.badge{display:inline-block;background:#000;color:#0f0;padding:4px 8px;font-family:monospace}
+.panel{background:#000b;border:1px solid #78d4ff;box-shadow:0 0 20px #0008;padding:18px;max-width:720px}
+.xp-btn{border:2px outset #fff;background:linear-gradient(#fff,#cfcfcf);padding:7px 14px;margin:4px}
+.xp-btn:active{border-style:inset}
+.status{position:fixed;left:0;right:0;bottom:0;height:46px;background:linear-gradient(#3c9df0,#0752a0);border-top:2px solid #fff;z-index:80;display:flex;align-items:center;color:#fff;padding:3px 8px;gap:8px}
+.start{height:39px;border:2px outset #fff;border-radius:4px;background:linear-gradient(#45bd4c,#16832d);color:#fff;font-weight:bold;padding:0 16px;font-style:italic}
+.clock{margin-left:auto;font-family:monospace;background:#07509a;padding:9px}
+#startMenu{position:fixed;left:8px;bottom:43px;width:300px;background:#eee;border:2px solid #fff;border-right-color:#555;border-bottom-color:#555;z-index:81;display:none;box-shadow:var(--shadow)}
+#startMenu.open{display:block}
+.user{background:linear-gradient(#0b86d4,#07529d);color:#fff;padding:13px;font-weight:bold}
+.menuitem{padding:12px;border:0;background:none;width:100%;text-align:left}.menuitem:hover{background:#2e8ed4;color:#fff}
+.chat{background:#f7f7f7;border:1px solid #777;height:260px;overflow:auto;padding:10px}
+.msg{margin:7px 0}.nick{font-weight:bold;color:#07539b}
+.chat input{width:calc(100% - 88px);padding:7px}
+.memory{background:var(--yellow);padding:15px;border:1px solid #a88d00;min-height:110px;font-family:"Comic Sans MS",cursive}
+.guestbook textarea{width:100%;height:80px}
+.posts{display:grid;gap:8px;margin-top:10px}.post{background:#fff;border:1px solid #aaa;padding:9px}
+.game{background:#050505;color:#0f0;font-family:monospace;padding:15px;text-align:center}
+#gameArea{height:170px;position:relative;border:1px dashed #0f0;margin:10px 0;overflow:hidden}
+#target{position:absolute;font-size:28px;background:none;border:0;color:#0f0}
+.progress{height:15px;background:#333;border:1px solid #777}.progress i{display:block;height:100%;width:0;background:#0f0}
+.music{display:flex;gap:7px;align-items:center;flex-wrap:wrap}.music a{color:#07539b}
+.egg{display:none;background:#000;color:#0f0;padding:10px;font-family:monospace}
+.egg.show{display:block}
+@media(max-width:600px){
+  #desktop{padding:8px 8px 68px}
+  .icons{justify-content:center;gap:8px}
+  .hero{min-height:330px}
+  .panel{padding:12px}
+  .window{top:55px}
+  .content{max-height:70vh}
+}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div id="desktop">
+<div class="scan"></div>
+
+<section class="hero" aria-labelledby="title">
+  <div class="panel">
+    <div class="badge">D:\CYBERCAFE\AFTER_SCHOOL.EXE</div>
+    <h1 id="title">₹20 / HOUR</h1>
+    <p>INDIA • 2004–2010 • ONE CRT • TWO HEADPHONES • ZERO PRIVACY</p>
+    <p>Welcome back to the dusty corner PC where homework mysteriously became Counter-Strike.</p>
+    <button class="xp-btn" onclick="openWin('memories')">Open Memory Box</button>
+    <button class="xp-btn" onclick="openWin('games')">Play LAN Game</button>
+  </div>
+</section>
+
+<div class="icons" aria-label="Desktop shortcuts">
+  <div class="icon"><button onclick="openWin('chat')"><span class="pic">💬</span><span>Yahoo! Messenger</span></button></div>
+  <div class="icon"><button onclick="openWin('orkut')"><span class="pic">📖</span><span>Orkut Scrapbook</span></button></div>
+  <div class="icon"><button onclick="openWin('memories')"><span class="pic">📂</span><span>My Memories</span></button></div>
+  <div class="icon"><button onclick="openWin('games')"><span class="pic">🎮</span><span>Games</span></button></div>
+  <div class="icon"><button onclick="openWin('mp3')"><span class="pic">🎵</span><span>MP3 Folder</span></button></div>
+  <div class="icon"><button onclick="openWin('about')"><span class="pic">🖥️</span><span>My Computer</span></button></div>
+</div>
+
+<div class="window" id="about" role="dialog" aria-labelledby="aboutTitle">
+ <div class="titlebar"><span id="aboutTitle">My Computer</span><div class="controls"><button aria-label="Close" onclick="closeWin('about')">×</button></div></div>
+ <div class="content"><div class="notepad">
+  <h2>Local Area Network</h2>
+  <p><b>Computer:</b> P4 2.4GHz • 256MB RAM • 15" CRT</p>
+  <p><b>Connection:</b> "Broadband" (when it felt like it)</p>
+  <p><b>Rate:</b> ₹20/hour</p>
+  <p><b>House rule:</b> Don't kick the CPU. It won't make the internet faster.</p>
+  <hr><p>Somewhere nearby, a printer is making a noise that sounds exactly like regret.</p>
+ </div></div>
+</div>
+
+<div class="window" id="memories" role="dialog" aria-labelledby="memoryTitle">
+ <div class="titlebar"><span id="memoryTitle">My Memories — Read Only-ish</span><div class="controls"><button aria-label="Close" onclick="closeWin('memories')">×</button></div></div>
+ <div class="content">
+   <div class="memory" id="memoryText"></div>
+   <p><button class="xp-btn" onclick="nextMemory()">Next memory →</button>
+   <button class="xp-btn" onclick="unlock()">I remember this.</button></p>
+   <div id="secretNote" class="egg">SECRET NOTE: "Bas 5 minute aur" was never five minutes.</div>
+ </div>
+</div>
+
+<div class="window" id="chat" role="dialog" aria-labelledby="chatTitle">
+ <div class="titlebar"><span id="chatTitle">Yahoo! Messenger — 2 online</span><div class="controls"><button aria-label="Close" onclick="closeWin('chat')">×</button></div></div>
+ <div class="content">
+   <div class="chat" id="chatLog" aria-live="polite">
+    <div class="msg"><span class="nick">Rahul:</span> bro vc?</div>
+    <div class="msg"><span class="nick">Aman:</span> coming. net slow hai.</div>
+    <div class="msg"><span class="nick">Rahul:</span> ask uncle to restart modem 😂</div>
+   </div>
+   <p><input id="chatInput" maxlength="120" aria-label="Local chat message" placeholder="Type a harmless local message…"><button class="xp-btn" onclick="sendChat()">Send</button></p>
+   <small>Local simulation only. Nothing is sent or saved.</small>
+ </div>
+</div>
+
+<div class="window" id="orkut" role="dialog" aria-labelledby="orkutTitle">
+ <div class="titlebar"><span id="orkutTitle">Orkut — Scrapbook</span><div class="controls"><button aria-label="Close" onclick="closeWin('orkut')">×</button></div></div>
+ <div class="content guestbook">
+   <p><b>Profile:</b> "cool_boy_2007" • scraps: 147</p>
+   <textarea id="scrapText" maxlength="180" aria-label="Local scrapbook note" placeholder="Write a fake scrapbook note…"></textarea>
+   <button class="xp-btn" onclick="addScrap()">Add Scrap</button>
+   <div class="posts" id="posts">
+    <div class="post">"nice profile yaar :)"<br><small>— Priya</small></div>
+    <div class="post">"testimonials pending... 😎"<br><small>— Sameer</small></div>
+   </div>
+ </div>
+</div>
+
+<div class="window" id="games" role="dialog" aria-labelledby="gameTitle">
+ <div class="titlebar"><span id="gameTitle">Counter-Strike 1.6 — Aim Trainer</span><div class="controls"><button aria-label="Close" onclick="closeWin('games')">×</button></div></div>
+ <div class="content game">
+   <div>LAN AIM TRAINER // 10 HITS</div>
+   <div id="gameArea"><button id="target" onclick="hitTarget()" aria-label="Hit target">✦</button></div>
+   <div class="progress"><i id="gameProgress"></i></div>
+   <p id="gameMsg">Click the target. No actual game files are downloaded.</p>
+   <button class="xp-btn" onclick="resetGame()">New Round</button>
+ </div>
+</div>
+
+<div class="window" id="mp3" role="dialog" aria-labelledby="mp3Title">
+ <div class="titlebar"><span id="mp3Title">My Music — DO NOT DELETE</span><div class="controls"><button aria-label="Close" onclick="closeWin('mp3')">×</button></div></div>
+ <div class="content">
+   <div class="notepad">
+    <p><b>01</b> — 2000s Hindi Pop Mix.mp3</p>
+    <p><b>02</b> — Linkin Park — Numb.mp3</p>
+    <p><b>03</b> — Atif Aslam — Aadat.mp3</p>
+    <p><b>04</b> — "new_song_final_FINAL.mp3"</p>
+    <hr>
+    <button class="xp-btn" onclick="fakeDownload()">Download selected file</button>
+    <span id="downloadMsg" aria-live="polite"></span>
+    <p><small>Safe simulation: no file is downloaded.</small></p>
+   </div>
+ </div>
+</div>
+
+<div class="window" id="music" role="dialog" aria-labelledby="musicTitle">
+ <div class="titlebar"><span id="musicTitle">Internet Music — No Autoplay</span><div class="controls"><button aria-label="Close" onclick="closeWin('music')">×</button></div></div>
+ <div class="content">
+  <div class="music">
+   <button class="xp-btn" onclick="openMusic()">Open YouTube search</button>
+   <span>Searches are optional; playback never starts automatically.</span>
+  </div>
+  <p><a id="ytLink" href="https://www.youtube.com/results?search_query=2000s+Indian+nostalgia+music" target="_blank" rel="noopener noreferrer">YouTube search: 2000s Indian nostalgia</a></p>
+  <small>If offline, the time capsule still works; only the external music link will be unavailable.</small>
+ </div>
+</div>
+</div>
+
+<div id="startMenu" aria-label="Start menu">
+ <div class="user">👤 CYBER CAFE USER</div>
+ <button class="menuitem" onclick="openWin('memories');toggleStart()">📂 My Memories</button>
+ <button class="menuitem" onclick="openWin('chat');toggleStart()">💬 Messenger</button>
+ <button class="menuitem" onclick="openWin('games');toggleStart()">🎮 Games</button>
+ <button class="menuitem" onclick="openWin('music');toggleStart()">🎵 Music</button>
+ <button class="menuitem" onclick="retroAlert()">🔌 Shut Down (not really)</button>
+</div>
+
+<footer class="status">
+ <button class="start" onclick="toggleStart()" aria-expanded="false">Start</button>
+ <button class="xp-btn" onclick="openWin('music')">♫</button>
+ <span id="status" aria-live="polite">Ready. Session started at ₹20/hour.</span>
+ <span class="clock" id="clock" aria-label="Current local time"></span>
+</footer>
+<script>
+const memories=[
+ "You ask for one hour. The uncle writes your start time in a notebook. You immediately open Orkut.",
+ "The CRT takes a second to wake up. That tiny electrical hum is somehow part of the soundtrack.",
+ "Someone says, “Bhai, password yaad hai?” Three people offer guesses. Nobody checks the Caps Lock key.",
+ "The computer has 256 MB RAM and somehow GTA Vice City is running. This is considered engineering.",
+ "A pen drive appears. Everyone waits while one 3 MB song copies across the LAN.",
+ "The printer in the corner starts screaming. Nobody knows who sent the print job."
+];
+let mem=0,hits=0;
+function openWin(id){document.querySelectorAll('.window').forEach(w=>w.classList.remove('open'));document.getElementById(id).classList.add('open');status('Opened '+id);if(id==='memories')renderMemory();}
+function closeWin(id){document.getElementById(id).classList.remove('open');status('Window closed.')}
+function status(t){document.getElementById('status').textContent=t}
+function renderMemory(){document.getElementById('memoryText').textContent=memories[mem]}
+function nextMemory(){mem=(mem+1)%memories.length;renderMemory();status('Memory rotated.')}
+function unlock(){document.getElementById('secretNote').classList.add('show');status('Hidden note unlocked.')}
+function toggleStart(){let m=document.getElementById('startMenu');m.classList.toggle('open');document.querySelector('.start').setAttribute('aria-expanded',m.classList.contains('open'))}
+function sendChat(){
+ const i=document.getElementById('chatInput'),v=i.value.trim();if(!v)return;
+ const d=document.createElement('div');d.className='msg';d.innerHTML='<span class="nick">You:</span> '+safe(v);
+ document.getElementById('chatLog').appendChild(d);i.value='';status('Local message added.');d.scrollIntoView({block:'nearest'});
+}
+function addScrap(){
+ const i=document.getElementById('scrapText'),v=i.value.trim();if(!v)return;
+ const d=document.createElement('div');d.className='post';d.innerHTML=safe(v)+'<br><small>— you, just now</small>';
+ document.getElementById('posts').prepend(d);i.value='';status('Scrap added locally.')}
+function safe(s){const d=document.createElement('div');d.textContent=s;return d.innerHTML}
+function fakeDownload(){document.getElementById('downloadMsg').textContent=' ✓ Transfer complete (imaginary).';status('Fake download completed — no file was created.')}
+function resetGame(){hits=0;document.getElementById('gameProgress').style.width='0%';document.getElementById('gameMsg').textContent='Click the target. No actual game files are downloaded.';moveTarget()}
+function moveTarget(){let a=document.getElementById('gameArea'),t=document.getElementById('target');t.style.left=Math.max(0,Math.random()*(a.clientWidth-45))+'px';t.style.top=Math.max(0,Math.random()*(a.clientHeight-45))+'px'}
+function hitTarget(){hits++;document.getElementById('gameProgress').style.width=(hits*10)+'%';if(hits>=10){document.getElementById('gameMsg').textContent='HEADSHOT! LAN legend unlocked. 🏆';status('Aim trainer complete.');}else moveTarget()}
+function retroAlert(){toggleStart();status('Nice try. The cyber cafe is not shutting down.');alert('“Bhai, one last game.” — The classic shutdown blocker.')}
+function openMusic(){window.open('https://www.youtube.com/results?search_query=2000s+Indian+nostalgia+music','_blank','noopener,noreferrer')}
+document.addEventListener('keydown',e=>{
+ if(e.key==='Escape'){document.querySelectorAll('.window').forEach(w=>w.classList.remove('open'));document.getElementById('startMenu').classList.remove('open');}
+ if(e.key==='F2'){e.preventDefault();openWin('memories')}
+ if(e.key==='F6'){e.preventDefault();openWin('games')}
+});
+document.addEventListener('dblclick',e=>{
+ if(e.target.closest('.hero h1')){document.getElementById('secretNote').classList.add('show');status('Easter egg: ₹20 was never enough for “just one hour”.')}
+});
+setInterval(()=>{document.getElementById('clock').textContent=new Date().toLocaleTimeString([], {hour:'2-digit',minute:'2-digit'})},1000);
+renderMemory();resetGame();
+</script>
+</body>
+</html>
